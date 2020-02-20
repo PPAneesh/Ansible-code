@@ -1,0 +1,19 @@
+---
+
+- hosts: web
+  become: yes
+  tasks:
+    - name: Install nginx on ubuntu
+      apt: name=nginx state=latest update_cache=yes
+      register: installed
+      notify: 
+         - restart service
+  handlers:  
+    - name: restart service
+      service: name=nginx enabled=true state=restarted
+      when: installed|success
+   
+
+
+
+    
