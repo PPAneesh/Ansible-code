@@ -8,10 +8,15 @@
       register: installed
       notify: 
          - restart service
+
+
+    - name: Print value
+      debug: var=installed
+
   handlers:  
     - name: restart service
       service: name=nginx enabled=true state=restarted
-      when: installed|success
+      when: installed is succeeded
    
 
 
